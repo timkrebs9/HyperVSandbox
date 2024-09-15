@@ -28,8 +28,8 @@ Write-Output "(step_ConfigureVMNetworking.ps1) was run at $(Get-Date)"
 # Install certificate
 ##############################################################
 Write-Output "Installing certificate..."
-$certFilePath = "C:\temp\HyperVSandbox\CertStore\test.cer"  # Replace <CERT-NAME> with your certificate name
-$certStoreLocation = "Cert:\LocalMachine\Root"
+$certFilePath = "C:\temp\HyperVSandbox\CertStore\test.cer"  # TODO: Replace <CERT-NAME> with your certificate name
+$certStoreLocation = "Cert:\LocalMachine\Root"              
 
 if (Test-Path -Path $certFilePath) {
     try {
@@ -46,8 +46,8 @@ if (Test-Path -Path $certFilePath) {
 ####################################
 Write-Output "Configuring proxy settings..."
 
-$proxyServer = "proxy.sdst.sbaintern.de:8090"
-$proxyOverride = "*.local;192.168.*"
+$proxyServer = "proxy.test.local:8080"   # TODO: Replace <PROXY-SERVER> with your proxy server
+$proxyOverride = "*.local;192.168.*"            # TODO: Replace <PROXY-OVERRIDE> with your proxy override
 
 $registryPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
 
