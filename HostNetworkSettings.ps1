@@ -13,12 +13,12 @@
 
 
 # Define variables
-$SwitchName = "Internal"
+$SwitchName = "Internal"                                                    # TODO: Replace with your Internal Switch Name
 $InterfaceAlias = "vEthernet ($SwitchName)"
-$IPAddress = "192.168.0.1"
+$IPAddress = "192.168.0.1"                                                  # TODO: Replace with your IP Adress
 $PrefixLength = 24
 $NatName = "InternalNAT"
-$InternalIPPrefix = "192.168.0.0/24"
+$InternalIPPrefix = "192.168.0.0/24"                                        # TODO: Replace with your IP prefix
 
 # Step 1: Create Internal Virtual Switch if it doesn't exist
 $InternalSwitch = Get-VMSwitch -Name $SwitchName -ErrorAction SilentlyContinue
