@@ -15,13 +15,13 @@
     'VM0' = @{
         vmName                = "Sandbox"
         vmPath                = ""
-        GoldenImagePath       = "C:\temp\HyperVSandbox\VHDX\Win11_23H2.vhdx"
+        GoldenImagePath       = "C:\temp\HyperVSandbox\VHDX\Win11_23H2.vhdx"                # TODO: Replace path with your .vhdx path
         vmMemory              = 4GB
         vmGeneration          = 2
         vmProcCount           = 2
         vmAutomaticStopAction = "ShutDown"
         vmNics                = @{
-            "aMGMT" = @{"Switch" = "Internal"; "VLANID" = "" }
+            "aMGMT" = @{"Switch" = "<InternalSwitchName>"; "VLANID" = "" }                  # TODO: Replace Internal Switch name
         }
         vmDataDisks           = @()
     }
