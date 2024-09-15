@@ -20,15 +20,15 @@
                 scriptFilePath  = 'step_AddDateTimeToLog.ps1'   # Path to the script to be executed
                 requiresRestart = $false                        # Does the step require a restart of the VM?
             }
-            #@{
+            #@{                                                  # TODO: Uncomment the following block to enable Windows Update
             #    stepHeadline    = 'Step1 - WindowsUpdate'       # Headline of the step - ! steps will be performed in alphabetical order !
             #    scriptFilePath  = 'step_DoWindowsUpdates.ps1'   # Path to the script to be executed
             #    requiresRestart = $false                        # Does the step require a restart of the VM?
             #}
             @{
-                stepHeadline    = 'Step1 - ConfigureVMNetworking'    # New step
+                stepHeadline    = 'Step1 - ConfigureVMNetworking'    
                 scriptFilePath  = 'step_ConfigureVMNetworking.ps1'
-                requiresRestart = $true                             # Set to $true if a restart is required
+                requiresRestart = $true                            
             }
         )
     }
