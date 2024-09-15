@@ -39,7 +39,7 @@ param(
     [UInt64]
     [ValidateNotNullOrEmpty()]
     [ValidateRange(1, 10)]
-    $ImageIndex = 4          #defaults to datacenter editions with GUI   
+    $ImageIndex = 3                                     # Image Index 3 correspond to Windows 11 Enterprise
 )
 
 $BCDBoot = "bcdboot.exe"
