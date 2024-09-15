@@ -14,16 +14,16 @@
 
 @{
     VM0 = @{
-        ComputerName  = 'Sandbox'
-        Organization  = 'myavd'
-        Owner         = 'myavd'
+        ComputerName  = 'Sandbox'                       # TODO: Replace with your VM name
+        Organization  = 'myavd'                         # TODO: Replace with your organization name
+        Owner         = 'myavd'                         # TODO: Replace with your name
         Timezone      = 'W. Europe Standard Time'
         InputLocale   = 'de-DE'
         SystemLocale  = 'en-US'
         UserLocale    = 'en-US'
-        IPAddress     = "192.168.0.10"
+        IPAddress     = "192.168.0.10"                  # TODO: Replace with your IP address
         IPMask        = "24"
-        IPGateway     = "192.168.0.1"
-        DNSIP         = "8.8.8.8"
+        IPGateway     = "192.168.0.1"                   # TODO: Replace with your gateway
+        DNSIP         = "8.8.8.8"                       # TODO: Replace with your DNS server
     }
 }
