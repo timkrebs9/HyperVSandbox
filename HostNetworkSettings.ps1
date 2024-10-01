@@ -11,14 +11,33 @@
 # 
 # ======================================================================================================================================================================
 
+param(
+    [ValidateNotNullOrEmpty()]
+    [string]$SwitchName = "Internal",
+
+    [ValidateNotNullOrEmpty()]
+    [string]$InterfaceAlias = "vEthernet (Internal)",
+
+    [ValidatePattern('\b\d{1,3}(\.\d{1,3}){3}\b')]
+    [string]$IPAddress = "192.168.0.1",
+
+    [ValidateRange(1,32)]
+    [int]$PrefixLength = 24,
+
+    [ValidateNotNullOrEmpty()]
+    [string]$NatName = "InternalNAT",
+
+    [ValidatePattern('\b\d{1,3}(\.\d{1,3}){3}/\d{1,2}\b')]
+    [string]$InternalIPPrefix = "192.168.0.0/24"
+)
 
 # Define variables
-$SwitchName = "Internal"                                                    # TODO: Replace with your Internal Switch Name
-$InterfaceAlias = "vEthernet ($SwitchName)"
-$IPAddress = "192.168.0.1"                                                  # TODO: Replace with your IP Adress
-$PrefixLength = 24
-$NatName = "InternalNAT"
-$InternalIPPrefix = "192.168.0.0/24"                                        # TODO: Replace with your IP prefix
+    #$SwitchName = "Internal"                                                    # TODO: Replace with your Internal Switch Name
+    #$InterfaceAlias = "vEthernet ($SwitchName)"
+    #$IPAddress = "192.168.0.1"                                                  # TODO: Replace with your IP Adress
+    #$PrefixLength = 24
+    #$NatName = "InternalNAT"
+    #$InternalIPPrefix = "192.168.0.0/24"                                        # TODO: Replace with your IP prefix
 
 # Step 1: Create Internal Virtual Switch if it doesn't exist
 $InternalSwitch = Get-VMSwitch -Name $SwitchName -ErrorAction SilentlyContinue
@@ -31,7 +50,12 @@ if ($InternalSwitch -eq $null) {
 }
 
 # Wait for the virtual network adapter to be created
-Start-Sleep -Seconds 5
+$WaitTime = 0
+while ($WaitTime -lt 30 -and -not (Get-NetAdapter -Name $InterfaceAlias -ErrorAction SilentlyContinue)) {
+    Start-Sleep -Seconds 1
+    $WaitTime++
+}
+
 
 # Step 2: Assign IP address to the host's virtual network adapter connected to the Internal switch
 $HostAdapter = Get-NetAdapter -Name $InterfaceAlias -ErrorAction SilentlyContinue
@@ -61,8 +85,14 @@ if ($HostAdapter -ne $null) {
 }
 
 # Step 3: Remove existing NAT configurations
-Write-Host "Removing existing NAT configurations..."
-Get-NetNat | Remove-NetNat -Confirm:$false
+$ExistingNat = Get-NetNat -Name $NatName -ErrorAction SilentlyContinue
+if ($ExistingNat) {
+    Write-Host "Removing existing NAT configuration '$NatName'..."
+    Remove-NetNat -Name $NatName -Confirm:$false
+} else {
+    Write-Host "No existing NAT configuration named '$NatName' found."
+}
+
 
 # Step 4: Configure NAT for the internal network
 Write-Host "Configuring NAT '$NatName' for internal network $InternalIPPrefix..."
